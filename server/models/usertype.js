@@ -1,9 +1,14 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var bcrypt = require('bcrypt-nodejs');
 
 var userTypeSchema = new Schema({
+    _id: mongoose.Types.ObjectId,
     name: String,
     description: {type: String},
-    subUserType: {type: mongoose.Schema.Types.ObjectId, ref: 'UserType'}
-})
+    user: [{
+        type: mongoose.Types.ObjectId,
+        ref: 'User'
+    }]
+});
+
+module.exports = mongoose.model('UserType', userTypeSchema);

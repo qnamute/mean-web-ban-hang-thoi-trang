@@ -3,14 +3,16 @@ var Schema = mongoose.Schema;
 
 
 var productSchema = new Schema({
+    _id: mongoose.Schema.Types.ObjectId,
     name: {type: String, required: true},
     price: {type: Number, required: true},
     size: {type: String},
     amount: {type: Number},
     gender: {type: Number},
-    color: {type: mongoose.Schema.Types.ObjectId, ref: 'Color'},
-    category: {type: mongoose.Schema.Types.ObjectId, ref: 'ProductCategory'},
-    images: {type: mongoose.Schema.Types.ObjectId, ref: 'ProductImage'},
-    brand: {type: mongoose.Schema.Types.ObjectId, ref: 'Brand'},
-    subProduct: {type: mongoose.Schema.Types.ObjectId, ref: 'Product'}
+    image: [{
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'ProductImage'
+    }]
 });
+
+module.exports = mongoose.model('Product', productSchema);
