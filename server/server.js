@@ -1,14 +1,17 @@
 // Call package
 
 var jwt = require('jsonwebtoken');
-
+const passport = require('passport');
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
-var port = process.env.PORT || 8000; // Set the port to the app
+var port = process.env.PORT || 8001; // Set the port to the app
 var mongoose = require('mongoose');
-
+//Routes
+var userRoute = require('./routes/userroute');
+var usertypeRoute = require('./routes/usertyperoute');
+//connect database
 mongoose.connect('mongodb://localhost:27017/mean-stack-project');
 
 //Get an instace of the express router
@@ -23,6 +26,10 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(bodyParser.json());
+
+//thien add
+app.use(passport.initialize());
+app.use(passport.session());
 
 //Configuration app to handle CROS requests
 
@@ -39,7 +46,8 @@ app.use(morgan('dev'));
 
 
 // Declare routes here
-    
+app.use('/usertypes', usertypeRoute);
+app.use('/users', userRoute)
 // 
 
 // START THE SERVER
