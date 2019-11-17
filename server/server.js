@@ -11,8 +11,13 @@ var mongoose = require('mongoose');
 //Routes
 var userRoute = require('./routes/userroute');
 var usertypeRoute = require('./routes/usertyperoute');
-//connect database
-mongoose.connect('mongodb://localhost:27017/mean-stack-project');
+// DB Config
+const db = require('./keys').mongoURI;
+//connection mongoDB
+mongoose
+  .connect(db, {useUnifiedTopology: true} ) // Let us remove that nasty deprecation warrning :)
+  .then(() => console.log('MongoDB Connected'))
+  .catch(err => console.log(err));
 
 //Get an instace of the express router
 
