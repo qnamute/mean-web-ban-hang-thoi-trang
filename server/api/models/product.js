@@ -9,13 +9,14 @@ var productSchema = new Schema({
     size: {type: String},
     amount: {type: Number},
     gender: {type: String},
-    image: [{
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: 'ProductImage'
-    }],
+    image: [String],
     category: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'ProductCategory'
+    },
+    branch: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Branch'
     }
 });
 

@@ -68,8 +68,8 @@ exports.branchs_create_branch = (req, res, next) => {
     const branch = new Branch({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
-        origin: req.body.price,
-        description: req.body.size,
+        origin: req.body.origin,
+        description: req.body.description,
     });
     branch
         .save()

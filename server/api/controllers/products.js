@@ -2,11 +2,10 @@ const mongoose = require('mongoose');
 const Product = require('../models/product');
 
 exports.products_get_all = (req, res, next) => {
-    console.log('a a a a');
     Product.find()
-        .select("_id name price size amount gender image category")
-        .populate("image", "_id url altImage")
-        .populate("category", "_id name origin description")
+        .select("_id name price size amount gender image category branch")
+        .populate("category", "_id name description")
+        .populate("branch", "_id name origin description")
         .exec()
         .then(docs => {
             const response = {
@@ -21,6 +20,7 @@ exports.products_get_all = (req, res, next) => {
                         gender: doc.gender,
                         image: doc.image,
                         category: doc.category,
+                        branch: doc.branch,
                         request: {
                             type: 'GET',
                             url: 'http://localhost:8001/products/' + doc._id
@@ -40,6 +40,7 @@ exports.products_get_all = (req, res, next) => {
 
 
 exports.products_create_product = (req, res, next) => {
+    console.log(req.body);
     const product = new Product({
         _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
@@ -47,14 +48,11 @@ exports.products_create_product = (req, res, next) => {
         size: req.body.size,
         amount: req.body.amount,
         gender: req.body.gender,
-        image: req.body.imageId,
+        image: req.body.image,
         category: req.body.categoryId,
+        branch: req.body.branchId
     });
 
-    if (product.image != null) {
-        product
-    }
-    console.log(product);
     product
         .save()
         .then(result => {
@@ -70,6 +68,7 @@ exports.products_create_product = (req, res, next) => {
                     gender: result.gender,
                     image: result.image,
                     category: result.category,
+                    branch: result.branch,
                     request: {
                         type: 'GET',
                         url: 'http://localhost:8001/products/' + result._id
@@ -88,9 +87,9 @@ exports.products_create_product = (req, res, next) => {
 exports.products_get_product = (req, res, next) => {
     const id = req.params.productId;
     Product.findById(id)
-        .select("_id name price size amount gender image category")
-        .populate("image", "_id url altImage")
-        .populate("category", "_id name origin description")
+        .select("_id name price size amount gender image category branch")
+        .populate("category", "_id name description")
+        .populate("branch", "_id name origin description")
         .exec()
         .then(doc => {
             console.log("From database", doc);
