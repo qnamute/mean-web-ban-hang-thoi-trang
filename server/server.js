@@ -16,6 +16,7 @@ const productCategoryRoutes = require('./api/routes/productcategories');
 const userRoutes = require('./api/routes/users');
 const userTypeRoutes = require('./api/routes/usertypes');
 const productImageRoutes = require('./api/routes/productimages');
+const branchRoutes = require('./api/routes/branchs');
 
 
 // const userRoute = require('./api/routes/userroute');
@@ -65,7 +66,7 @@ app.use('/productcategories', productCategoryRoutes);
 app.use('/user', userRoutes);
 app.use('/usertypes', userTypeRoutes);
 app.use('/productimages', productImageRoutes);
-
+app.use('/branchs', branchRoutes);
 // app.use('/usertypes', usertypeRoute);
 // app.use('/users', userRoute)
 // 

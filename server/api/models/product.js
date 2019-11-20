@@ -12,7 +12,11 @@ var productSchema = new Schema({
     image: [{
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'ProductImage'
-    }]
+    }],
+    category: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'ProductCategory'
+    }
 });
 
 module.exports = mongoose.model('Product', productSchema);

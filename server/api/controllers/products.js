@@ -2,8 +2,11 @@ const mongoose = require('mongoose');
 const Product = require('../models/product');
 
 exports.products_get_all = (req, res, next) => {
+    console.log('a a a a');
     Product.find()
-        .select("_id name price size amount gender image")
+        .select("_id name price size amount gender image category")
+        .populate("image", "_id url altImage")
+        .populate("category", "_id name origin description")
         .exec()
         .then(docs => {
             const response = {
@@ -17,6 +20,7 @@ exports.products_get_all = (req, res, next) => {
                         amount: doc.amount,
                         gender: doc.gender,
                         image: doc.image,
+                        category: doc.category,
                         request: {
                             type: 'GET',
                             url: 'http://localhost:8001/products/' + doc._id
@@ -43,7 +47,8 @@ exports.products_create_product = (req, res, next) => {
         size: req.body.size,
         amount: req.body.amount,
         gender: req.body.gender,
-        image: req.body.imageId
+        image: req.body.imageId,
+        category: req.body.categoryId,
     });
 
     if (product.image != null) {
@@ -64,6 +69,7 @@ exports.products_create_product = (req, res, next) => {
                     amount: result.amount,
                     gender: result.gender,
                     image: result.image,
+                    category: result.category,
                     request: {
                         type: 'GET',
                         url: 'http://localhost:8001/products/' + result._id
@@ -82,7 +88,9 @@ exports.products_create_product = (req, res, next) => {
 exports.products_get_product = (req, res, next) => {
     const id = req.params.productId;
     Product.findById(id)
-        .select("_id name price size amount gender image")
+        .select("_id name price size amount gender image category")
+        .populate("image", "_id url altImage")
+        .populate("category", "_id name origin description")
         .exec()
         .then(doc => {
             console.log("From database", doc);
