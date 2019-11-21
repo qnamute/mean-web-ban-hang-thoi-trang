@@ -31,8 +31,16 @@
         </div>
         <div class="menu">
             <ul class="list">
+                
+                <li class="contain" *ngIf="!user">
+                    <span [routerLink]="['/manage']">MANAGER</span>
+                </li>
+            
                 <li class="contain" *ngIf="!user" (click)="openLoginDialog()">
-                    <span>SIGN IN</span>
+                    <span>ĐĂNG NHẬP</span>
+                </li>
+                <li class="contain" *ngIf="!user" (click)="openRegisterDialog()">
+                    <span>ĐĂNG KÝ</span>
                 </li>
 
                 <li class="contain profile dropdown" *ngIf="user">
@@ -52,7 +60,9 @@
                 </li>
             </ul>
         </div>
+        
         <div class="cart-icon mobile-view" *ngIf="!user">
+            
             <button mat-stroked-button color="primary" class="button" (click)="openLoginDialog()">LOGIN</button>
         </div>
         <div class="cart-icon mobile-view" *ngIf="user">

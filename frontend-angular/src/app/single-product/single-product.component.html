@@ -1,0 +1,57 @@
+<div class="conatiner" *ngIf="product">
+        <div class="product-img-container">
+            <img class="productImg" mat-card-image style="width: 100%; padding: 20px;" [src]="product.image[0]"
+                alt="Photo of a Shiba Inu">
+    
+        </div>
+        <div class="product-description">
+            <h2 style="font-weight: 400;"> {{product.text}}</h2>
+            <div class="rating-container">
+                <span>Star: 5.0</span>
+                <span class="rating">100 Rating</span>
+                <span class="sold">500 Sold</span>
+            </div>
+            <h2 style="font-weight: 400;"> $120.00 </h2>
+            <div>
+                <h4>NUTRITION INFORMATION</h4>
+                1 serving = 5 g (1 fruit)
+                <br>
+                134% Recommended Daily Intake per serving)<br>
+                Sodium-free (1 mg per serving)<br>
+                Fat-free (0.01 g per serving)<br>
+                <h5>LOOK FOR</h5>
+                Small, firm, dark red, cherry-like fruit.
+    
+                <h5>TO STORE</h5>
+                Keep uncovered at room temperature for a few days or refrigerate washed fruits in a ventilated container for
+                1 to 2 weeks.
+    
+                <h5>TO PREPARE</h5>
+                Fresh fruits may be eaten plain or pressed into juice, jams and preserves.
+    
+            </div>
+            <div>
+    
+                <mat-form-field>
+                    <mat-label>Size</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let food of foods" [value]="food.value">
+                            {{food.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+    
+            <div class="button-group">
+                <button mat-button mat-raised-button color="primary" class="buy-now-button space">BUY NOW
+                </button>
+    
+                <button mat-button mat-stroked-button color="primary" class="button">
+                    ADD TO CART
+                </button>
+            </div>
+    
+    
+        </div>
+    
+    </div>

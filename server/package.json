@@ -10,7 +10,11 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^3.0.6",
+    "bcrypt-nodejs": "0.0.3",
     "mongoose": "^5.7.5",
     "passport": "^0.4.0"
+  },
+  "devDependencies": {
+    "electron-rebuild": "^1.8.6"
   }
 }
