@@ -40,7 +40,7 @@ export class ProductService {
   getProductById(id) {
     return this.http.get(`${this.url}/products/${id}`);
   }
-  addProduct(p: Product){
+  addProduct(p){
     const product = {
       name: p.name,
       price: p.price,
@@ -48,12 +48,14 @@ export class ProductService {
       amount: p.amount,
       gender: p.gender,
       image: p.image,
-      category: p.category
+      categoryId: p.category
     }
-    console.log("product add service",product);
+    console.log("product add service",JSON.stringify(p));
     
     
-    return this.http.post(`${this.url}/products`,product);
+    return this.http.post(this.url + "/products",product).subscribe((res)=>{
+      console.log(res);
+    });
   }
   updateProduct(p, id){
     const product = {
@@ -63,15 +65,19 @@ export class ProductService {
       amount: p.amount,
       gender: p.gender,
       image: p.image,
-      category: p.category
+      categoryId: p.category
     }
     console.log("ID service", id);
     console.log("Product update service", product);
-    return this.http.patch(`${this.url}/products/${id}`, product);
+    return this.http.put(this.url+'/products'+'/'+id, product).subscribe((res)=>{
+      console.log(res);
+    });
   }
   deleteProduct(id){
     console.log("ID service", id);
-    return this.http.delete(`${this.url}/products/${id}`);
+    return this.http.delete(this.url+'/products/'+id).subscribe((res)=>{
+      console.log(res);
+    });
   }
   populateForm(product) {
     this.form.setValue(product);

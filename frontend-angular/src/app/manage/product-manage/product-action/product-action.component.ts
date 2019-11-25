@@ -60,7 +60,8 @@ export class ProductActionComponent implements OnInit {
       this.form.get('image').setValue(this.path);
       console.log("ID",this.form.get('id').value)
       console.log("produc",this.form.value);
-      this.productService.updateProduct(this.form.value,this.form.get('id').value)
+      this.productService.updateProduct(this.form.value,this.form.get('id').value);
+      this.onClose();
     }
     else{
       this.form.get('image').setValue(this.path);
@@ -70,6 +71,7 @@ export class ProductActionComponent implements OnInit {
       this.productService.initializeFormGroup();
       this.notificationService.success(':: Submitted successfully');
       this.onClose();
+      this.router.navigate(['/manage']);
       }
     }
     

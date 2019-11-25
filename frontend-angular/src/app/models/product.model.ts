@@ -1,3 +1,5 @@
+import { Category } from './category.model';
+
 export interface Product {
     id: String;
     name: String;
@@ -6,5 +8,5 @@ export interface Product {
     amount: Number;
     gender: String;
     image: String[];
-    category: String;
+    category: Category;
 }
