@@ -8,14 +8,23 @@ var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var port = process.env.PORT || 8001; // Set the port to the app
 var mongoose = require('mongoose');
+
+
 //Routes
-var userRoute = require('./routes/userroute');
-var usertypeRoute = require('./routes/usertyperoute');
+const productRoutes = require('./api/routes/products');
+const productCategoryRoutes = require('./api/routes/productcategories');
+const userRoutes = require('./api/routes/users');
+const userTypeRoutes = require('./api/routes/usertypes');
+const branchRoutes = require('./api/routes/branchs');
+
+
+// const userRoute = require('./api/routes/userroute');
+// const usertypeRoute = require('./api/routes/usertyperoute');
 // DB Config
 const db = require('./keys').mongoURI;
 //connection mongoDB
 mongoose
-  .connect(db, {useUnifiedTopology: true} ) // Let us remove that nasty deprecation warrning :)
+  .connect(db, { useUnifiedTopology: true }) // Let us remove that nasty deprecation warrning :)
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
 
@@ -27,7 +36,7 @@ var apiRouter = express.Router();
 //User body-parser 
 
 app.use(bodyParser.urlencoded({
-    extended: true
+  extended: true
 }));
 
 app.use(bodyParser.json());
@@ -39,10 +48,10 @@ app.use(passport.session());
 //Configuration app to handle CROS requests
 
 app.use(function (req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, content-type, Authorization');
-    next();
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With, content-type, Authorization');
+  next();
 });
 
 
@@ -51,8 +60,13 @@ app.use(morgan('dev'));
 
 
 // Declare routes here
-app.use('/usertypes', usertypeRoute);
-app.use('/users', userRoute)
+app.use('/products', productRoutes);
+app.use('/productcategories', productCategoryRoutes);
+app.use('/user', userRoutes);
+app.use('/usertypes', userTypeRoutes);
+app.use('/branchs', branchRoutes);
+// app.use('/usertypes', usertypeRoute);
+// app.use('/users', userRoute)
 // 
 
 // START THE SERVER
